@@ -1,0 +1,6 @@
+# mac
+.DS_Store
+
+# npm/yarn
+node_modules/
+package-lock.json
