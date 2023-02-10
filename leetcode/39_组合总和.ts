@@ -75,3 +75,37 @@ combinationSum([5,10,8,4,3,12,9], 27);
 转换判断方法 为 isEqual方法 */
 
 // @lc code=end
+
+
+// 优化
+// 通过完善剪枝来去除 isEqual 的逻辑
+// 通过dfs添加 sum参数，去除每次都调用 getCount 的逻辑
+function combinationSum2(candidates: number[], target: number): number[][] {
+    candidates.sort((a, b) => a - b);
+    let res: number[][] = [];
+
+    function dfs(arr: number[], list: number[], sum: number) {
+        // 对于给定的输入，保证和为 target 的不同组合数少于 150 个。
+        if (res.length === 149) return;
+
+        for (let i = 0; i < list.length; i++) {
+            const num = sum + list[i];
+
+            // 由于是升序；超出target则直接退出
+            if (num > target) return;
+
+            const group = [...arr, list[i]];
+            if (num === target) {
+                res.push(group);
+                return;
+            }
+            /* 例如：第一轮循环2，3，6，7时，2 可以不断递归与 2，3，6，7进行累加；
+            但第一轮循环轮到3时，就不应该再和2进行累加，否则就会重复 */
+            dfs(group, list.slice(i), num);
+        }
+    }
+
+    dfs([], candidates, 0);
+
+    return res;
+};
