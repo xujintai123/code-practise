@@ -7,7 +7,9 @@ function combine(n: number, k: number): number[][] {
         }
         for (let i = start; i <= n; i++) {
             /* 剪枝 */
-            if (n - start + arr.length + 1 < k) {
+            /* n - start + 1 剩余可添加的最大数值数目 */
+            /* arr.length 已添加的数值数目 */
+            if (n - start + 1 + arr.length < k) {
                 break;
             }
             arr[index] = i;
