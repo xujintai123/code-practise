@@ -6,8 +6,6 @@
  * [55] 跳跃游戏
  *
  * https://leetcode.cn/problems/jump-game/
- *
- * 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
  * 
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode.cn/problems/jump-game/
@@ -24,11 +22,11 @@
  * 解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
  */
 
-// import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 function canJump(nums: number[]): boolean {
-    if (nums.length === 1) return true;
-    let cover = 0;
+    /* 当前可以抵达的最远位置 */
+    let cover = nums[0];
     for (let i = 0; i <= cover; i++) {
         cover = Math.max(cover, i + nums[i]);
         if (cover >= nums.length - 1) return true;
